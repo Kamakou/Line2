@@ -152,7 +152,7 @@ uint8_t Line::WhiteNum() {
       return white_sum;
 }
 
-int8_t Line::JUDGE(){
+int8_t Line::JUDGE(){//ライン上か否かの判定
       int8_t Line_judge;
       if (WhiteNum() < 2){
             Line_judge=0;//ライン上でない
@@ -177,7 +177,7 @@ uint8_t Line::cprDegree(){
       return degree_cpr;
 }
 
-float Line::Memory_vecx(){
+float Line::Memory_vecx(){//ラインに乗った際、どこから乗ったかの記憶
       static int16_t Memory_x;
       int8_t JUDGE_A=JUDGE();
       static int8_t JUDGE_B;
@@ -193,7 +193,7 @@ float Line::Memory_vecx(){
       return Memory_x;
 }
 
-float Line::Memory_vecy(){
+float Line::Memory_vecy(){//ラインに乗った際、どこから乗ったかの記憶
       static int16_t Memory_y;
       int8_t JUDGE_A=JUDGE();
       static int8_t JUDGE_B;
@@ -209,7 +209,7 @@ float Line::Memory_vecy(){
       return Memory_y;
 }
 
-float Line::Moving_x(){
+float Line::Moving_x(){//X軸方向のベクトル
       float Moving_vecx;
       if (result_vector_x >=0)&&(Memory_vecx()<=0){
             Moving_vecx = -1*(result_vector_x);
@@ -221,7 +221,7 @@ float Line::Moving_x(){
       return Moving_vecx;
 }
 
-float Line::Moving_y(){
+float Line::Moving_y(){//Y軸方向のベクトル
       float Moving_vecy;
       if (result_vector_y >=0)&&(Memory_vecy()<=0){
             Moving_vecy = -1*(result_vector_y);
@@ -233,7 +233,7 @@ float Line::Moving_y(){
       return Moving_vecy;
 }
 
-int16_t Line::degree_move(){
+int16_t Line::degree_move(){//動く向き
       int16_t degree_move;
       degree_move=atan2(Moving_vecx(),Moving_vecy())*180.00/PI;
       return degree_move;
