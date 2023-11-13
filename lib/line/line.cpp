@@ -232,3 +232,9 @@ float Line::Moving_y(){
       }
       return Moving_vecy;
 }
+
+int16_t Line::degree_move(){
+      int16_t degree_move;
+      degree_move=atan2(Moving_vecx(),Moving_vecy())*180.00/PI;
+      return degree_move;
+}
