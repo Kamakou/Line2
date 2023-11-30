@@ -182,9 +182,9 @@ float Line::Memory_vecx(){//ラインに乗った際、どこから乗ったか�
       int8_t JUDGE_A=JUDGE();
       static int8_t JUDGE_B;
       int8_t JUDGE_res=JUDGE_A-JUDGE_B;
-      if(JUDGE_res=1){
+      if(JUDGE_res==1){
             Memory_x=result_vector_x;//xベクトル
-      }else if(JUDGE_res=-1){//ライン内に戻ったため記憶をリセット
+      }else if(JUDGE_res==-1){//ライン内に戻ったため記憶をリセット
             Memory_x=0;
       }else{
             //何もしない
@@ -198,9 +198,9 @@ float Line::Memory_vecy(){//ラインに乗った際、どこから乗ったか�
       int8_t JUDGE_A=JUDGE();
       static int8_t JUDGE_B;
       int8_t JUDGE_res=JUDGE_A-JUDGE_B;
-      if(JUDGE_res=1){
+      if(JUDGE_res==1){
             Memory_y=result_vector_y;//xベクトル
-      }else if(JUDGE_res=-1){//ライン内に戻ったため記憶をリセット
+      }else if(JUDGE_res==-1){//ライン内に戻ったため記憶をリセット
             Memory_y=0;
       }else{
             //何もしない
@@ -209,11 +209,11 @@ float Line::Memory_vecy(){//ラインに乗った際、どこから乗ったか�
       return Memory_y;
 }
 
-float Line::Moving_x(){//X軸方向のベクトル
+float Line::Moving_vecx(){//X軸方向のベクトル
       float Moving_vecx;
-      if (result_vector_x >=0)&&(Memory_vecx()<=0){
+      if (result_vector_x >=0 && Memory_vecx()<=0){
             Moving_vecx = -1*(result_vector_x);
-      }else if(result_vector_x<=0)&&(Memory_vecx()>=0){
+      }else if(result_vector_x<=0 && Memory_vecx()>=0){
             Moving_vecx = -1*(result_vector_x);
       }else {
             Moving_vecx=1*(result_vector_x);
@@ -221,11 +221,11 @@ float Line::Moving_x(){//X軸方向のベクトル
       return Moving_vecx;
 }
 
-float Line::Moving_y(){//Y軸方向のベクトル
+float Line::Moving_vecy(){
       float Moving_vecy;
-      if (result_vector_y >=0)&&(Memory_vecy()<=0){
+      if (result_vector_y >=0 && Memory_vecy()<=0){
             Moving_vecy = -1*(result_vector_y);
-      }else if(result_vector_y<=0)&&(Memory_vecy()>=0){
+      }else if(result_vector_y<=0 && Memory_vecy()>=0){
             Moving_vecy = -1*(result_vector_y);
       }else {
             Moving_vecy=1*(result_vector_y);

@@ -25,6 +25,13 @@ class Line {
       uint8_t IsRight();
       uint8_t WhiteNum();
       int16_t LineVector();
+      int8_t JUDGE();
+      uint8_t cprDegree();
+      float Memory_vecx();
+      float Memory_vecy();
+      float Moving_vecx();
+      float Moving_vecy();
+      int16_t degree_move();
 
      private:
       AnalogIn left;
