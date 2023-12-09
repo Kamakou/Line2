@@ -177,64 +177,36 @@ uint8_t Line::cprDegree(){
       return degree_cpr;
 }
 
-float Line::Memory_vecx(){//ラインに乗った際、どこから乗ったかの記憶
-      static int16_t Memory_x;
+float Line::Memory_vec(){//ラインに乗った際、どこから乗ったかの記憶
+      static int16_t Memory_v;
       int8_t JUDGE_A=JUDGE();
       static int8_t JUDGE_B;
       int8_t JUDGE_res=JUDGE_A-JUDGE_B;
       if(JUDGE_res==1){
-            Memory_x=result_vector_x;//xベクトル
+            Memory_v=LineVector();//xベクトル
       }else if(JUDGE_res==-1){//ライン内に戻ったため記憶をリセット
-            Memory_x=0;
+            Memory_v=0;
       }else{
             //何もしない
       }
       JUDGE_B=JUDGE_A;
-      return Memory_x;
+      return Memory_v;
 }
 
-float Line::Memory_vecy(){//ラインに乗った際、どこから乗ったかの記憶
-      static int16_t Memory_y;
-      int8_t JUDGE_A=JUDGE();
-      static int8_t JUDGE_B;
-      int8_t JUDGE_res=JUDGE_A-JUDGE_B;
-      if(JUDGE_res==1){
-            Memory_y=result_vector_y;//xベクトル
-      }else if(JUDGE_res==-1){//ライン内に戻ったため記憶をリセット
-            Memory_y=0;
-      }else{
-            //何もしない
-      }
-      JUDGE_B=JUDGE_A;
-      return Memory_y;
-}
-
-float Line::Moving_vecx(){//X軸方向のベクトル
-      float Moving_vecx;
-      if (result_vector_x >=0 && Memory_vecx()<=0){
-            Moving_vecx = -1*(result_vector_x);
-      }else if(result_vector_x<=0 && Memory_vecx()>=0){
-            Moving_vecx = -1*(result_vector_x);
+float Line::Moving_vec(){//X軸方向のベクトル
+      float Moving_vec;
+      if (result_vector_x >=0 && Memory_vec()<=0){
+            Moving_vec = 1*(LineVector());
+      }else if(result_vector_x<=0 && Memory_vec()>=0){
+            Moving_vec = 1*(LineVector());
       }else {
-            Moving_vecx=1*(result_vector_x);
+            Moving_vec=-1*(LineVector());
       }
-      return Moving_vecx;
+      return Moving_vec;
 }
 
-float Line::Moving_vecy(){
-      float Moving_vecy;
-      if (result_vector_y >=0 && Memory_vecy()<=0){
-            Moving_vecy = -1*(result_vector_y);
-      }else if(result_vector_y<=0 && Memory_vecy()>=0){
-            Moving_vecy = -1*(result_vector_y);
-      }else {
-            Moving_vecy=1*(result_vector_y);
-      }
-      return Moving_vecy;
-}
-
-int16_t Line::degree_move(){//動く向き
-      int16_t degree_move;
-      degree_move=atan2(Moving_vecx(),Moving_vecy())*180.00/PI;
-      return degree_move;
-}
+//int16_t Line::degree_move(){//動く向き
+      //int16_t degree_move=0;
+      //degree_move=LineVector();
+      //return degree_move;
+//}
