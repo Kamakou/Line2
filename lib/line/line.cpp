@@ -195,9 +195,9 @@ float Line::Memory_vec(){//ラインに乗った際、どこから乗ったか�
 
 float Line::Moving_vec(){//X軸方向のベクトル
       float Moving_vec;
-      if (result_vector_x >=0 && Memory_vec()<=0){
+      if (LineVector() >=0 && Memory_vec()<=0){
             Moving_vec = 1*(LineVector());
-      }else if(result_vector_x<=0 && Memory_vec()>=0){
+      }else if(LineVector()<=0 && Memory_vec()>=0){
             Moving_vec = 1*(LineVector());
       }else {
             Moving_vec=-1*(LineVector());

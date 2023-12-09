@@ -28,9 +28,8 @@ class Line {
       int8_t JUDGE();
       uint8_t cprDegree();
       float Memory_vec();
-      float Moving_vecx();
-      float Moving_vecy();
-      int16_t degree_move();
+      float Moving_vec();
+      //int16_t degree_move();
 
      private:
       AnalogIn left;
