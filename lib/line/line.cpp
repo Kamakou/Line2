@@ -162,7 +162,7 @@ int8_t Line::JUDGE(){//ライン上か否かの判定
       return Line_judge;
 }
 
-uint8_t Line::cprDegree(){
+uint8_t Line::cprDegree(){//角度の増減 今の所用途なし
       int16_t degree_Before=LineVector();
       static int16_t degree_After=0;
       uint8_t degree_cpr;
@@ -187,7 +187,7 @@ float Line::Memory_vec(){//ラインに乗った際、どこから乗ったか�
       }else if(JUDGE_res==-1){//ライン内に戻ったため記憶をリセット
             Memory_v=0;
       }else{
-            //何もしない
+            Memory_v=Memory_v;//何もしない
       }
       JUDGE_B=JUDGE_A;
       return Memory_v;
