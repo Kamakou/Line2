@@ -11,6 +11,7 @@
 #define LINE_QTY 24
 #define SET_TH_NUM 100
 #define TH_VALUE 10
+#define FULL_COUNT 1      //仮
 
 class Line {
      public:
@@ -21,15 +22,12 @@ class Line {
 
       void Read();
       void SetTh();
+      void LineAlgo();
       uint8_t IsLeft();
       uint8_t IsRight();
       uint8_t WhiteNum();
       int16_t LineVector();
-      int8_t JUDGE();
-      uint8_t cprDegree();
-      float Memory_vec();
-      float Moving_vec();
-      //int16_t degree_move();
+      int16_t InsideVector();
 
      private:
       AnalogIn left;
@@ -62,6 +60,11 @@ class Line {
       float unit_vector_y[LINE_QTY];
       float result_vector_x = 0;
       float result_vector_y = 0;
+      bool outside_= false;
+      bool halfout_= false;
+      float dir_inside=0;
+      float inside_vector_x=0;
+      float inside_vector_y=0;
 };
 
 #endif

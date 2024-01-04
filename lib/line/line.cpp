@@ -152,61 +152,66 @@ uint8_t Line::WhiteNum() {
       return white_sum;
 }
 
-int8_t Line::JUDGE(){//ライン上か否かの判定
-      int8_t Line_judge;
-      if (WhiteNum() < 2){
-            Line_judge=0;//ライン上でない
+void Line::LineAlgo(){//50行は多すぎ？
+      uint8_t white_count=WhiteNum();
+      static int16_t prv_inside_degree=0;
+      if (white_count<2){
+                  outside_=false;
+                  halfout_=false;
+                  dir_inside=outside_?prv_inside_degree:-1;
       }else{
-            Line_judge=1;//ライン上
+            outside_=false;
+            uint8_t pos_w[white_count];
+            uint8_t num_w=0;
+            for (uint8_t i=0;i<LINE_QTY;i ++){
+                  if(val[i] > th_val[i]){
+                        pos_w[num_w]=i;
+                        num_w ++;
+                  }
+            }
+            uint8_t intv_line[white_count];
+            for (uint8_t i=0;i<white_count-1;i++){
+                  intv_line[i]=pos_w[i+1]-pos_w[i];
+            }
+            intv_line[white_count-1]=pos_w[0]-pos_w[white_count]+LINE_QTY;
+            uint8_t max_interval=0;
+            uint8_t pos_maxinterval=0;
+            for (num_w=0;num_w<white_count;num_w++){
+                  if(max_interval<intv_line[num_w]){
+                        max_interval=intv_line[num_w];
+                        pos_maxinterval=num_w;
+                  }
+            }
+            dir_inside=pos_w[max_interval]+max_interval*0.5;
+            int16_t inside_degree=0;
+            inside_vector_x=MyCos(dir_inside*360/LINE_QTY);
+            inside_vector_y=MySin(dir_inside*360/LINE_QTY);
+            inside_degree=atan2(inside_vector_y,inside_vector_x)*180/PI;
+            if (prv_inside_degree>=0){
+                  halfout_=false;
+                  if(prv_inside_degree+110<inside_degree<prv_inside_degree+250){
+                        inside_degree=inside_degree+180;
+                        halfout_=true;
+                  }
+            }
+            prv_inside_degree=inside_degree;
       }
-      return Line_judge;
-}
+}//inside_degreeを実際の動く向きに設定、prv_inside_degreeに一つ前の値が保持されているか確認する必要あり
 
-uint8_t Line::cprDegree(){//角度の増減 今の所用途なし
-      int16_t degree_Before=LineVector();
-      static int16_t degree_After=0;
-      uint8_t degree_cpr;
-      if (degree_After>degree_Before){//角度増加
-            degree_cpr=2;
-      }else if(degree_After<degree_Before){//角度減少
-            degree_cpr=1;
-      }else{
-            degree_cpr=0;//不変
-      }
-      degree_After=degree_Before;
-      return degree_cpr;
-}
-
-float Line::Memory_vec(){//ラインに乗った際、どこから乗ったかの記憶
-      static int16_t Memory_v;
-      int8_t JUDGE_A=JUDGE();
-      static int8_t JUDGE_B;
-      int8_t JUDGE_res=JUDGE_A-JUDGE_B;
-      if(JUDGE_res==1){
-            Memory_v=LineVector();//xベクトル
-      }else if(JUDGE_res==-1){//ライン内に戻ったため記憶をリセット
-            Memory_v=0;
-      }else{
-            Memory_v=Memory_v;//何もしない
-      }
-      JUDGE_B=JUDGE_A;
-      return Memory_v;
-}
-
-float Line::Moving_vec(){//X軸方向のベクトル
-      float Moving_vec;
-      if (LineVector() >=0 && Memory_vec()<=0){
-            Moving_vec = 1*(LineVector());
-      }else if(LineVector()<=0 && Memory_vec()>=0){
-            Moving_vec = 1*(LineVector());
-      }else {
-            Moving_vec=-1*(LineVector());
-      }
-      return Moving_vec;
-}
-
-//int16_t Line::degree_move(){//動く向き
-      //int16_t degree_move=0;
-      //degree_move=LineVector();
-      //return degree_move;
+//int16_t Line::InsideVector(){
+//      int16_t inside_degree=0;
+//      static int16_t prv_inside_degree=0;
+//      inside_vector_x=MyCos(dir_inside*360/LINE_QTY);
+//      inside_vector_y=MySin(dir_inside*360/LINE_QTY);
+//      inside_degree=atan2(inside_vector_y,inside_vector_x)*180/PI;
+//      if (prv_inside_degree>=0){
+//            outside_=false;
+//            if(prv_inside_degree+110<inside_degree<prv_inside_degree+250){
+//                  inside_degree=inside_degree+180;
+//                  outside_=true;
+//            }
+//      }
+//      prv_inside_degree=inside_degree;
 //}
+
+
