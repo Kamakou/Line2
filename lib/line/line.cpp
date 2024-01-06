@@ -156,9 +156,8 @@ void Line::LineAlgo(){//50行は多すぎ？
       uint8_t white_count=WhiteNum();
       static int16_t prv_inside_degree=0;
       if (white_count<2){
-                  outside_=false;
-                  halfout_=false;
-                  dir_inside=outside_?prv_inside_degree:-1;
+            outside_=halfout_;
+            dir_inside=outside_?prv_inside_degree:-1;
       }else{
             outside_=false;
             uint8_t pos_w[white_count];
@@ -183,21 +182,31 @@ void Line::LineAlgo(){//50行は多すぎ？
                   }
             }
             dir_inside=pos_w[max_interval]+max_interval*0.5;
-            int16_t inside_degree=0;
             inside_vector_x=MyCos(dir_inside*360/LINE_QTY);
             inside_vector_y=MySin(dir_inside*360/LINE_QTY);
             inside_degree=atan2(inside_vector_y,inside_vector_x)*180/PI;
             if (prv_inside_degree>=0){
                   halfout_=false;
-                  if(prv_inside_degree+110<inside_degree<prv_inside_degree+250){
+                  if(prv_inside_degree+110<inside_degree and inside_degree<prv_inside_degree+250){
                         inside_degree=inside_degree+180;
                         halfout_=true;
                   }
             }
-            prv_inside_degree=inside_degree;
       }
+      prv_inside_degree=inside_degree;
 }//inside_degreeを実際の動く向きに設定、prv_inside_degreeに一つ前の値が保持されているか確認する必要あり
 
+uint8_t Line::IsOutside(){
+      return outside_;
+}
+
+uint8_t Line::IsHalfout(){
+      return halfout_;
+}
+
+int16_t Line::InsideDeg(){
+      return dir_inside;
+}
 //int16_t Line::InsideVector(){
 //      int16_t inside_degree=0;
 //      static int16_t prv_inside_degree=0;

@@ -57,11 +57,11 @@ void MainMcu() {
       send_byte[2] = encoder.get(1);
       send_byte[3] = encoder.get(2);
       send_byte[4] = encoder.get(3);
-      send_byte[5] = line.JUDGE();
-      send_byte[6] = line.Moving_vec();
+      send_byte[5] = line.IsOutside();
+      send_byte[6] = line.IsHalfout();
       send_byte[7] = line.IsLeft();
       send_byte[8] = line.IsRight();
-      send_byte[9] = line.Memory_vec() > 0 ? line.Memory_vec() : 0;
+      send_byte[9] = line.InsideDeg() > 0 ? line.InsideDeg() : 0;
       send_byte[10] = line.Memory_vec() < 0 ? line.Memory_vec() * -1 : 0;
       send_byte[11] = line.JUDGE() > 0 ? line.JUDGE() : 0;
       send_byte[12] = line.JUDGE() < 0 ? line.JUDGE() * -1 : 0;

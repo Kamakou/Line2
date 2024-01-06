@@ -27,7 +27,9 @@ class Line {
       uint8_t IsRight();
       uint8_t WhiteNum();
       int16_t LineVector();
-      int16_t InsideVector();
+      uint8_t IsOutside();
+      uint8_t IsHalfout();
+      int16_t InsideDeg();
 
      private:
       AnalogIn left;
@@ -62,7 +64,8 @@ class Line {
       float result_vector_y = 0;
       bool outside_= false;
       bool halfout_= false;
-      float dir_inside=0;
+      int16_t inside_degree=0;
+      int16_t dir_inside=0;
       float inside_vector_x=0;
       float inside_vector_y=0;
 };
