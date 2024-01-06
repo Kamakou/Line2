@@ -30,6 +30,7 @@ class Line {
       uint8_t IsOutside();
       uint8_t IsHalfout();
       int16_t InsideDeg();
+      int16_t DirInside();
 
      private:
       AnalogIn left;

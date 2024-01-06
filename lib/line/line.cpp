@@ -205,22 +205,12 @@ uint8_t Line::IsHalfout(){
 }
 
 int16_t Line::InsideDeg(){
+      return inside_degree;
+}
+
+int16_t Line::DirInside(){
       return dir_inside;
 }
-//int16_t Line::InsideVector(){
-//      int16_t inside_degree=0;
-//      static int16_t prv_inside_degree=0;
-//      inside_vector_x=MyCos(dir_inside*360/LINE_QTY);
-//      inside_vector_y=MySin(dir_inside*360/LINE_QTY);
-//      inside_degree=atan2(inside_vector_y,inside_vector_x)*180/PI;
-//      if (prv_inside_degree>=0){
-//            outside_=false;
-//            if(prv_inside_degree+110<inside_degree<prv_inside_degree+250){
-//                  inside_degree=inside_degree+180;
-//                  outside_=true;
-//            }
-//      }
-//      prv_inside_degree=inside_degree;
-//}
+
 
 

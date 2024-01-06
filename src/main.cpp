@@ -62,9 +62,9 @@ void MainMcu() {
       send_byte[7] = line.IsLeft();
       send_byte[8] = line.IsRight();
       send_byte[9] = line.InsideDeg() > 0 ? line.InsideDeg() : 0;
-      send_byte[10] = line.Memory_vec() < 0 ? line.Memory_vec() * -1 : 0;
-      send_byte[11] = line.JUDGE() > 0 ? line.JUDGE() : 0;
-      send_byte[12] = line.JUDGE() < 0 ? line.JUDGE() * -1 : 0;
+      send_byte[10] = line.InsideDeg() < 0 ? line.InsideDeg() * -1 : 0;
+      send_byte[11] = line.DirInside() > 0 ? line.DirInside() : 0;
+      send_byte[12] = line.DirInside() < 0 ? line.DirInside() * -1 : 0;
       send_byte[13] = 0xAA;
 
       for (uint8_t i = 0; i < send_byte_num; i++) {
