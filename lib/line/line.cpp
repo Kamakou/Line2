@@ -155,7 +155,7 @@ uint8_t Line::WhiteNum() {
 void Line::LineAlgo(){//50行は多すぎ？
       uint8_t white_count=WhiteNum();
       static int16_t prv_inside_degree=0;
-      if (white_count<2){
+      if (white_count<=2){
             outside_=halfout_;
             dir_inside=outside_?prv_inside_degree:-1;
       }else{
@@ -175,13 +175,13 @@ void Line::LineAlgo(){//50行は多すぎ？
             intv_line[white_count-1]=pos_w[0]-pos_w[white_count]+LINE_QTY;
             uint8_t max_interval=0;
             uint8_t pos_maxinterval=0;
-            for (num_w=0;num_w<white_count;num_w++){
+            for (num_w=0;num_w<white_count-1;num_w++){
                   if(max_interval<intv_line[num_w]){
                         max_interval=intv_line[num_w];
                         pos_maxinterval=num_w;
                   }
             }
-            dir_inside=pos_w[max_interval]+max_interval*0.5;
+            dir_inside=pos_w[pos_maxinterval]+max_interval*0.5;
             inside_vector_x=MyCos(dir_inside*360/LINE_QTY);
             inside_vector_y=MySin(dir_inside*360/LINE_QTY);
             inside_degree=atan2(inside_vector_y,inside_vector_x)*180/PI;
@@ -204,7 +204,7 @@ uint8_t Line::IsHalfout(){
       return halfout_;
 }
 
-int16_t Line::InsideDeg(){
+int16_t Line::MovingVec(){
       return inside_degree;
 }
 

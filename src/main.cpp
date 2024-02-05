@@ -42,35 +42,28 @@ int main() {
             }
 
             line.Read();
-            encoder.read();
 
-            
+            MainMcu();
       }
 }
 
 void MainMcu() {
-      // 受信
-      const uint8_t send_byte_num = 14;
+      // 送信
+      const uint8_t send_byte_num = 8;
       uint8_t send_byte[send_byte_num];
       send_byte[0] = 0xFF;
-      send_byte[1] = encoder.get(0);
-      send_byte[2] = encoder.get(1);
-      send_byte[3] = encoder.get(2);
-      send_byte[4] = encoder.get(3);
-      send_byte[5] = line.IsOutside();
-      send_byte[6] = line.IsHalfout();
-      send_byte[7] = line.IsLeft();
-      send_byte[8] = line.IsRight();
-      send_byte[9] = line.InsideDeg() > 0 ? line.InsideDeg() : 0;
-      send_byte[10] = line.InsideDeg() < 0 ? line.InsideDeg() * -1 : 0;
-      send_byte[11] = line.DirInside() > 0 ? line.DirInside() : 0;
-      send_byte[12] = line.DirInside() < 0 ? line.DirInside() * -1 : 0;
-      send_byte[13] = 0xAA;
+      send_byte[1] = 0;
+      send_byte[2] = 0;
+      send_byte[3] = line.IsOutside();
+      send_byte[4] = line.IsHalfout() << 2 | line.IsLeft() << 1 | line.IsRight();
+      send_byte[5] = line.MovingVec() / 2 + 90;
+      send_byte[6] = line.DirInside() / 2 + 90;
+      send_byte[7] = 0xAA;
 
       for (uint8_t i = 0; i < send_byte_num; i++) {
             mainSerial.putc(send_byte[i]);
       }
 
-      // 送信
+      // 受信
       if (mainSerial.readable()) do_led_on = mainSerial.getc();
 }
